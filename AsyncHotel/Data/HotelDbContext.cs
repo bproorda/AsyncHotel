@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AsyncHotel.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace AsyncHotel.Data
         public HotelDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Amenity> Amenities { get; set; }
     }
 }

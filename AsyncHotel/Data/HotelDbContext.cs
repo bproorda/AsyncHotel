@@ -13,6 +13,15 @@ namespace AsyncHotel.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Amenity>()
+                .HasData(
+                new Amenity { Id = 1, name = "Hot Tub"}
+                );
+        }
         public DbSet<Amenity> Amenities { get; set; }
     }
 }

@@ -21,7 +21,14 @@ namespace AsyncHotel.Data
                 .HasData(
                 new Amenity { Id = 1, name = "Hot Tub"}
                 );
+
+            modelBuilder.Entity<Room>()
+             .HasData(
+             new Room { Id = 1, name = "Lake View", layout= Room.Layout.OneBedroom }
+             );
         }
         public DbSet<Amenity> Amenities { get; set; }
+
+        public DbSet<Room> Rooms { get; set; }
     }
 }

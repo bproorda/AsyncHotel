@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +14,11 @@ namespace AsyncHotel.Models
 
         public int RoomNumber { get; set; }
 
-        public Room RoomId { get; set; }
+        public Room Room { get; set; }
 
+        public int RoomId { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Rate { get; set; }
 
         public bool PetFriendly { get; set; }

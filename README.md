@@ -3,7 +3,12 @@ Stay Asynchronously!
 
 - Entity Relationship Diagram
 
+my attempt: 
 ![ERD](AsyncHotelERB.png)
+
+
+The codeFellows ERD I will be using:
+![ERD](AsyncInnERD.png)
 
 Entities
 - Hotel: establishes the Id and location of the hotel

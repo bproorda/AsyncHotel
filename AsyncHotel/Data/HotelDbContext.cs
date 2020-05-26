@@ -26,9 +26,15 @@ namespace AsyncHotel.Data
              .HasData(
              new Room { Id = 1, name = "Lake View", layout= Room.Layout.OneBedroom }
              );
+            modelBuilder.Entity<Hotel>()
+             .HasData(
+             new Hotel { Id = 1, Name = "The Superior Hotel", StreetAddress = "1 Cherry Street", City = "Munising", State = "Michigan", Country = "USA", Phone = "387-555-1987" }
+             );
         }
         public DbSet<Amenity> Amenities { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<Hotel> Hotels { get; set; }
     }
 }

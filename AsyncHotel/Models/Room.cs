@@ -20,6 +20,9 @@ namespace AsyncHotel.Models
             Studio,
             OneBedroom,
             TwoBedroom,
+            Suite,
+            Honeymoon,
+            Cabin
                 
         }
     }

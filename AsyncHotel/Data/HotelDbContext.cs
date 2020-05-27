@@ -19,7 +19,11 @@ namespace AsyncHotel.Data
 
             modelBuilder.Entity<Amenity>()
                 .HasData(
-                new Amenity { Id = 1, name = "Hot Tub"}
+                new Amenity { Id = 1, name = "Hot Tub"},
+                new Amenity { Id = 2, name = "Kitchenette" },
+                new Amenity { Id = 3, name = "Dining" },
+                new Amenity { Id = 4, name = "Netflix" },
+                new Amenity { Id = 5, name = "Safe" }
                 );
 
             modelBuilder.Entity<Room>()
@@ -28,7 +32,11 @@ namespace AsyncHotel.Data
              );
             modelBuilder.Entity<Hotel>()
              .HasData(
-             new Hotel { Id = 1, Name = "The Superior Hotel", StreetAddress = "1 Cherry Street", City = "Munising", State = "Michigan", Country = "USA", Phone = "387-555-1987" }
+             new Hotel { Id = 1, Name = "The Superior Hotel", StreetAddress = "1 Cherry Street", City = "Munising", State = "Michigan", Country = "USA", Phone = "387-555-1987" },
+             new Hotel { Id = 2, Name = "Snowbound", City = "Copper Harbor", State = "Michigan"},
+             new Hotel { Id = 3, Name = "Red Bay", City = "Ashland", State = "Wisconsin" },
+             new Hotel { Id = 4, Name = "Duluth Inn", City = "Duluth", State = "Minnesota" },
+             new Hotel { Id = 5, Name = "Last Stop", City = "Grand Marais", State = "Minnesota" }
              );
 
             modelBuilder.Entity<RoomAmenity>()
@@ -51,5 +59,7 @@ namespace AsyncHotel.Data
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
     }
 }

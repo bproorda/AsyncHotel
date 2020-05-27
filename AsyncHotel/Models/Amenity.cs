@@ -13,6 +13,7 @@ namespace AsyncHotel.Models
         [Required]
         public string name { get; set; }
 
+        
         //Navigation properites
         public ICollection<RoomAmenity> RoomAmenities { get; set; }
 

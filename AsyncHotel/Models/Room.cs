@@ -20,7 +20,16 @@ namespace AsyncHotel.Models
             Studio,
             OneBedroom,
             TwoBedroom,
+            Suite,
+            Honeymoon,
+            Cabin
                 
         }
+
+        //Navigation properites
+        public ICollection<Amenity> Amenities { get; set; }
+
+
+
     }
 }

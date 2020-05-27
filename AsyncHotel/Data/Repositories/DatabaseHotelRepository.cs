@@ -1,4 +1,5 @@
 ﻿using AsyncHotel.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,69 @@ namespace AsyncHotel.Data.Repositories
 {
     public class DatabaseHotelRepository : IHotelRepository
     {
-        public Task<Hotel> DeleteHotel(int id)
+        private readonly HotelDbContext _context;
+
+        public DatabaseHotelRepository(HotelDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<IEnumerable<Hotel>> GetAllHotels()
+        public async Task<Hotel> DeleteHotel(int id)
         {
-            throw new NotImplementedException();
+            var hotel = await _context.Hotels.FindAsync(id);
+            if (hotel == null)
+            {
+                return null;
+            }
+
+            _context.Hotels.Remove(hotel);
+            await _context.SaveChangesAsync();
+
+            return hotel;
         }
 
-        public Task<Hotel> GetOneHotel(int id)
+        public async Task<IEnumerable<Hotel>> GetAllHotels()
         {
-            throw new NotImplementedException();
+            return await _context.Hotels.ToListAsync();
         }
 
-        public Task<Hotel> SaveNewHotel(Hotel hotel)
+        public async Task<Hotel> GetOneHotel(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Hotels.FindAsync(id);
         }
 
-        public Task<bool> UpdateHotel(int id, Hotel hotel)
+        public async Task<Hotel> SaveNewHotel(Hotel hotel)
         {
-            throw new NotImplementedException();
+            _context.Hotels.Add(hotel);
+            await _context.SaveChangesAsync();
+            return hotel;
         }
+
+        public async Task<bool> UpdateHotel(int id, Hotel hotel)
+        {
+            _context.Entry(hotel).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HotelExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        private bool HotelExists(int id)
+       {
+           return _context.Hotels.Any(e => e.Id == id);
+       }
     }
 }

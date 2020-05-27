@@ -25,5 +25,11 @@ namespace AsyncHotel.Models
             Cabin
                 
         }
+
+        //Navigation properites
+        public ICollection<Amenity> Amenities { get; set; }
+
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AsyncHotel.Models;
+using AsyncHotel.Models.API;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace AsyncHotel.Data.Repositories
             _context = context;
         }
 
-        public async Task<Hotel> DeleteHotel(int id)
+        public async Task<HotelDTO> DeleteHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
             if (hotel == null)
@@ -24,27 +25,47 @@ namespace AsyncHotel.Data.Repositories
                 return null;
             }
 
+            var hotelToReturn = await GetOneHotel(id);
+
             _context.Hotels.Remove(hotel);
             await _context.SaveChangesAsync();
 
+            return hotelToReturn;
+        }
+
+        public async Task<IEnumerable<HotelDTO>> GetAllHotels()
+        {
+            var hotels = await _context.Hotels
+                 .Select(hotel => new HotelDTO
+                 {
+                     Id = hotel.Id,
+                     Name = hotel.Name,
+                     City = hotel.City,
+                     State = hotel.State
+                 }).ToListAsync();
+            return hotels;
+        }
+
+        public async Task<HotelDTO> GetOneHotel(int id)
+        {
+            var hotel = await _context.Hotels
+                .Select(hotel => new HotelDTO
+                {
+                    Id = hotel.Id,
+                    Name = hotel.Name,
+                    City = hotel.City,
+                    State = hotel.State
+                })
+                .FirstOrDefaultAsync(hotel => hotel.Id == id);
+
             return hotel;
         }
 
-        public async Task<IEnumerable<Hotel>> GetAllHotels()
-        {
-            return await _context.Hotels.ToListAsync();
-        }
-
-        public async Task<Hotel> GetOneHotel(int id)
-        {
-            return await _context.Hotels.FindAsync(id);
-        }
-
-        public async Task<Hotel> SaveNewHotel(Hotel hotel)
+        public async Task<HotelDTO> SaveNewHotel(Hotel hotel)
         {
             _context.Hotels.Add(hotel);
             await _context.SaveChangesAsync();
-            return hotel;
+            return await GetOneHotel(hotel.Id);
         }
 
         public async Task<bool> UpdateHotel(int id, Hotel hotel)

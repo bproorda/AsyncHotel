@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsyncHotel.Data;
 using AsyncHotel.Models;
+using AsyncHotel.Data.Repositories.IRepositories;
 
 namespace AsyncHotel.Controllers
 {
@@ -14,25 +15,26 @@ namespace AsyncHotel.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        private readonly HotelDbContext _context;
 
-        public AmenitiesController(HotelDbContext context)
+        IAmenityRepository AmenityRepository;
+
+        public AmenitiesController(IAmenityRepository AmenityRepository)
         {
-            _context = context;
+            this.AmenityRepository = AmenityRepository;
         }
 
         // GET: api/Amenities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenities()
         {
-            return await _context.Amenities.ToListAsync();
+            return Ok(await AmenityRepository.GetAllAmenities());
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Amenity>> GetAmenity(int id)
         {
-            var amenity = await _context.Amenities.FindAsync(id);
+            var amenity = await AmenityRepository.GetOneAmenity(id);
 
             if (amenity == null)
             {
@@ -53,22 +55,11 @@ namespace AsyncHotel.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(amenity).State = EntityState.Modified;
+            bool didUpdate = await AmenityRepository.UpdateAmenity(id, amenity);
 
-            try
+            if (!didUpdate)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmenityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return NoContent();
@@ -80,31 +71,24 @@ namespace AsyncHotel.Controllers
         [HttpPost]
         public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
         {
-            _context.Amenities.Add(amenity);
-            await _context.SaveChangesAsync();
+            await AmenityRepository.SaveNewAmenity(amenity);
 
-            return CreatedAtAction("GetAmenity", new { id = amenity.Id }, amenity);
+            return CreatedAtAction("GetStudent", new { id = amenity.Id }, amenity);
         }
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Amenity>> DeleteAmenity(int id)
         {
-            var amenity = await _context.Amenities.FindAsync(id);
+            var amenity = await AmenityRepository.DeleteAmenity(id);
             if (amenity == null)
             {
                 return NotFound();
             }
 
-            _context.Amenities.Remove(amenity);
-            await _context.SaveChangesAsync();
-
             return amenity;
         }
 
-        private bool AmenityExists(int id)
-        {
-            return _context.Amenities.Any(e => e.Id == id);
-        }
+      
     }
 }

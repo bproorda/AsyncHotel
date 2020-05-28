@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AsyncHotel.Data;
 using AsyncHotel.Data.Repositories;
+using AsyncHotel.Data.Repositories.DatabaseRepositories;
+using AsyncHotel.Data.Repositories.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +43,7 @@ namespace AsyncHotel
             //Regristration for controllers and repositories
             services.AddTransient<IHotelRepository, DatabaseHotelRepository>();
             services.AddTransient<IRoomRepository, DatabaseRoomRepository>();
+            services.AddTransient<IAmenityRepository, DatabaseAmenityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

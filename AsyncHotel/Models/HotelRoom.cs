@@ -18,8 +18,8 @@ namespace AsyncHotel.Models
 
         public int RoomId { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
-        public decimal Rate { get; set; }
+        //[Column(TypeName = "decimal(18,4)")]
+        public double Rate { get; set; }
 
         public bool PetFriendly { get; set; }
 

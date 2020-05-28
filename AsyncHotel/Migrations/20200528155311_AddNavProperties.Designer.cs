@@ -3,14 +3,16 @@ using AsyncHotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200528155311_AddNavProperties")]
+    partial class AddNavProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,42 +184,6 @@ namespace AsyncHotel.Migrations
                             Id = 1,
                             layout = 1,
                             name = "Lake View"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            layout = 2,
-                            name = "Forest View"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            layout = 3,
-                            name = "Lake View Suite"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            layout = 5,
-                            name = "Rustic Cabin"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            layout = 5,
-                            name = "The Lost Camp"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            layout = 4,
-                            name = "Lover's Leap"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            layout = 5,
-                            name = "The Lighthouse"
                         });
                 });
 
@@ -234,63 +200,6 @@ namespace AsyncHotel.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("RoomAmenities");
-
-                    b.HasData(
-                        new
-                        {
-                            AmenityId = 1,
-                            RoomId = 6
-                        },
-                        new
-                        {
-                            AmenityId = 2,
-                            RoomId = 6
-                        },
-                        new
-                        {
-                            AmenityId = 3,
-                            RoomId = 6
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 6
-                        },
-                        new
-                        {
-                            AmenityId = 5,
-                            RoomId = 6
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 1
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 2
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 3
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 4
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 5
-                        },
-                        new
-                        {
-                            AmenityId = 4,
-                            RoomId = 7
-                        });
                 });
 
             modelBuilder.Entity("AsyncHotel.Models.HotelRoom", b =>

@@ -28,7 +28,13 @@ namespace AsyncHotel.Data
 
             modelBuilder.Entity<Room>()
              .HasData(
-             new Room { Id = 1, name = "Lake View", layout= Room.Layout.OneBedroom }
+             new Room { Id = 1, name = "Lake View", layout= Room.Layout.OneBedroom },
+             new Room { Id = 2, name = "Forest View", layout = Room.Layout.TwoBedroom },
+             new Room { Id = 3, name = "Lake View Suite", layout = Room.Layout.Suite },
+             new Room { Id = 4, name = "Rustic Cabin", layout = Room.Layout.Cabin },
+             new Room { Id = 5, name = "The Lost Camp", layout = Room.Layout.Cabin },
+             new Room { Id = 6, name = "Lover's Leap", layout = Room.Layout.Honeymoon },
+             new Room { Id = 7, name = "The Lighthouse", layout = Room.Layout.Cabin }
              );
             modelBuilder.Entity<Hotel>()
              .HasData(
@@ -45,6 +51,21 @@ namespace AsyncHotel.Data
               RoomAmenity.AmenityId,
               RoomAmenity.RoomId
           });
+
+            modelBuilder.Entity<RoomAmenity>()
+                .HasData(
+                new RoomAmenity {  AmenityId = 1, RoomId = 6},
+                new RoomAmenity { AmenityId = 2, RoomId = 6 },
+                new RoomAmenity { AmenityId = 3, RoomId = 6 },
+                new RoomAmenity { AmenityId = 4, RoomId = 6 },
+                new RoomAmenity { AmenityId = 5, RoomId = 6 },
+                new RoomAmenity { AmenityId = 4, RoomId = 1 },
+                new RoomAmenity { AmenityId = 4, RoomId = 2 },
+                new RoomAmenity { AmenityId = 4, RoomId = 3 },
+                new RoomAmenity { AmenityId = 4, RoomId = 4 },
+                new RoomAmenity { AmenityId = 4, RoomId = 5 },
+                new RoomAmenity { AmenityId = 4, RoomId = 7 }
+                );
             modelBuilder.Entity<HotelRoom>()
             .HasKey(HotelRoom => new
             {

@@ -27,7 +27,7 @@ namespace AsyncHotel.Models
         }
 
         //Navigation properites
-        public ICollection<Amenity> Amenities { get; set; }
+        public ICollection<RoomAmenity> RoomAmenities { get; set; }
 
 
 

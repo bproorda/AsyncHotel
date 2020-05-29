@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncHotel.Data;
 using AsyncHotel.Models;
 using AsyncHotel.Data.Repositories.IRepositories;
+using AsyncHotel.Models.API;
 
 namespace AsyncHotel.Controllers
 {
@@ -32,7 +33,7 @@ namespace AsyncHotel.Controllers
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenity>> GetAmenity(int id)
+        public async Task<ActionResult<AmenityDTO>> GetAmenity(int id)
         {
             var amenity = await AmenityRepository.GetOneAmenity(id);
 
@@ -78,7 +79,7 @@ namespace AsyncHotel.Controllers
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Amenity>> DeleteAmenity(int id)
+        public async Task<ActionResult<AmenityDTO>> DeleteAmenity(int id)
         {
             var amenity = await AmenityRepository.DeleteAmenity(id);
             if (amenity == null)

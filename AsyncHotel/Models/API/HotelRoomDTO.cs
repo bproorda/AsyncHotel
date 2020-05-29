@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AsyncHotel.Models
+namespace AsyncHotel.Models.API
 {
-    public class HotelRoom
+    public class HotelRoomDTO
     {
-        public Hotel Hotel { get; set; }
+        public string Hotel { get; set; }
 
         public int HotelId { get; set; }
 
         public int RoomNumber { get; set; }
 
-        public Room Room { get; set; }
+        public RoomDTO Room { get; set; }
 
         public int RoomId { get; set; }
 
@@ -22,6 +21,5 @@ namespace AsyncHotel.Models
         public double Rate { get; set; }
 
         public bool PetFriendly { get; set; }
-
     }
 }

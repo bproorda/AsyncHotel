@@ -3,14 +3,16 @@ using AsyncHotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200528224302_AddMoreSeedData2")]
+    partial class AddMoreSeedData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,8 +147,8 @@ namespace AsyncHotel.Migrations
                     b.Property<bool>("PetFriendly")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Rate")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
@@ -156,64 +158,6 @@ namespace AsyncHotel.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("HotelRooms");
-
-                    b.HasData(
-                        new
-                        {
-                            HotelId = 1,
-                            RoomId = 1,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 2,
-                            RoomId = 2,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 3,
-                            RoomId = 3,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 4,
-                            RoomId = 6,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            RoomId = 4,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            RoomId = 5,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            RoomId = 7,
-                            PetFriendly = true,
-                            Rate = 90.5,
-                            RoomNumber = 0
-                        });
                 });
 
             modelBuilder.Entity("AsyncHotel.Models.Room", b =>

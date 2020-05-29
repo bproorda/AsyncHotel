@@ -1,4 +1,5 @@
 ﻿using AsyncHotel.Models;
+using AsyncHotel.Models.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace AsyncHotel.Data.Repositories.IRepositories
 {
     public interface IAmenityRepository
     {
-        Task<IEnumerable<Amenity>> GetAllAmenities();
+        Task<IEnumerable<AmenityDTO>> GetAllAmenities();
 
-        Task<Amenity> GetOneAmenity(int id);
+        Task<AmenityDTO> GetOneAmenity(int id);
 
         /// <summary>
         /// 
@@ -21,13 +22,13 @@ namespace AsyncHotel.Data.Repositories.IRepositories
         Task<bool> UpdateAmenity(int id, Amenity Amenity);
 
 
-        Task<Amenity> SaveNewAmenity(Amenity Amenity);
+        Task<AmenityDTO> SaveNewAmenity(Amenity Amenity);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns> deleted Amenity</returns>
-        Task<Amenity> DeleteAmenity(int id);
+        Task<AmenityDTO> DeleteAmenity(int id);
     }
 }

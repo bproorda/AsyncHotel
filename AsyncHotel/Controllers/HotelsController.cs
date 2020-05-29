@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncHotel.Data;
 using AsyncHotel.Models;
 using AsyncHotel.Data.Repositories;
+using AsyncHotel.Models.API;
 
 namespace AsyncHotel.Controllers
 {
@@ -26,14 +27,14 @@ namespace AsyncHotel.Controllers
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
             return Ok(await HotelRepository.GetAllHotels());
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        public async Task<ActionResult<HotelDTO>> GetHotel(int id)
         {
             var hotel = await HotelRepository.GetOneHotel(id);
 
@@ -70,7 +71,7 @@ namespace AsyncHotel.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
+        public async Task<ActionResult<HotelDTO>> PostHotel(Hotel hotel)
         {
             await HotelRepository.SaveNewHotel(hotel);
 
@@ -79,7 +80,7 @@ namespace AsyncHotel.Controllers
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hotel>> DeleteHotel(int id)
+        public async Task<ActionResult<HotelDTO>> DeleteHotel(int id)
         {
             var hotel = await HotelRepository.DeleteHotel(id);
 

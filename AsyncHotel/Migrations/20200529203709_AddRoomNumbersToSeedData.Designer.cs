@@ -3,14 +3,16 @@ using AsyncHotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncHotel.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529203709_AddRoomNumbersToSeedData")]
+    partial class AddRoomNumbersToSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,7 +141,7 @@ namespace AsyncHotel.Migrations
                     b.Property<int>("HotelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<bool>("PetFriendly")
@@ -148,10 +150,10 @@ namespace AsyncHotel.Migrations
                     b.Property<double>("Rate")
                         .HasColumnType("float");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("HotelId", "RoomNumber");
+                    b.HasKey("HotelId", "RoomId");
 
                     b.HasIndex("RoomId");
 
@@ -161,58 +163,58 @@ namespace AsyncHotel.Migrations
                         new
                         {
                             HotelId = 1,
-                            RoomNumber = 101,
+                            RoomId = 1,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 1
+                            RoomNumber = 101
                         },
                         new
                         {
                             HotelId = 2,
-                            RoomNumber = 102,
+                            RoomId = 2,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 2
+                            RoomNumber = 102
                         },
                         new
                         {
                             HotelId = 3,
-                            RoomNumber = 103,
+                            RoomId = 3,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 3
+                            RoomNumber = 103
                         },
                         new
                         {
                             HotelId = 4,
-                            RoomNumber = 104,
+                            RoomId = 6,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 6
+                            RoomNumber = 104
                         },
                         new
                         {
                             HotelId = 5,
-                            RoomNumber = 101,
+                            RoomId = 4,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 4
+                            RoomNumber = 101
                         },
                         new
                         {
                             HotelId = 5,
-                            RoomNumber = 201,
+                            RoomId = 5,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 5
+                            RoomNumber = 201
                         },
                         new
                         {
                             HotelId = 5,
-                            RoomNumber = 301,
+                            RoomId = 7,
                             PetFriendly = true,
                             Rate = 90.5,
-                            RoomId = 7
+                            RoomNumber = 301
                         });
                 });
 

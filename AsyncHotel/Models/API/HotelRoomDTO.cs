@@ -13,7 +13,7 @@ namespace AsyncHotel.Models.API
 
         public int RoomNumber { get; set; }
 
-        public Room Room { get; set; }
+        public RoomDTO Room { get; set; }
 
         public int RoomId { get; set; }
 

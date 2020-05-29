@@ -50,7 +50,21 @@ namespace AsyncHotel.Data.Repositories
                          Hotel = hr.Hotel.Name,
                          HotelId = hr.HotelId,
                          Rate = hr.Rate,
+                         RoomId = hr.RoomId,
+                         RoomNumber = hr.RoomNumber,
                          PetFriendly = hr.PetFriendly,
+                         Room = new RoomDTO 
+                         {
+                             Id = hr.Room.Id,
+                             name = hr.Room.name,
+                             layout = hr.Room.layout.ToString(),
+                             RoomAmenities = hr.Room.RoomAmenities
+                             .Select( ra => new RoomAmenityDTO 
+                             {
+                                 Amenity = ra.Amenity.name,
+                             })
+                             .ToList(),
+                         }
                      })
                      .ToList(),
                  })
@@ -66,7 +80,30 @@ namespace AsyncHotel.Data.Repositories
                     Id = hotel.Id,
                     Name = hotel.Name,
                     City = hotel.City,
-                    State = hotel.State
+                    State = hotel.State,
+                     HotelRooms = hotel.HotelRooms
+                     .Select(hr => new HotelRoomDTO
+                     {
+                         Hotel = hr.Hotel.Name,
+                         HotelId = hr.HotelId,
+                         Rate = hr.Rate,
+                         RoomId = hr.RoomId,
+                         RoomNumber = hr.RoomNumber,
+                         PetFriendly = hr.PetFriendly,
+                         Room = new RoomDTO
+                         {
+                             Id = hr.Room.Id,
+                             name = hr.Room.name,
+                             layout = hr.Room.layout.ToString(),
+                             RoomAmenities = hr.Room.RoomAmenities
+                             .Select(ra => new RoomAmenityDTO
+                             {
+                                 Amenity = ra.Amenity.name,
+                             })
+                             .ToList(),
+                         }
+                     })
+                     .ToList(),
                 })
                 .FirstOrDefaultAsync(hotel => hotel.Id == id);
 

@@ -16,6 +16,6 @@ namespace AsyncHotel.Models.API
         public string State { get; set; }
 
         //Navigation properites
-        public ICollection<HotelRoom> HotelRooms { get; set; }
+        public List<HotelRoomDTO> HotelRooms { get; set; }
     }
 }

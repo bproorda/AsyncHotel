@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace AsyncHotel.Data.Repositories
 {
     public class DatabaseHotelRepository : IHotelRepository
@@ -41,8 +42,19 @@ namespace AsyncHotel.Data.Repositories
                      Id = hotel.Id,
                      Name = hotel.Name,
                      City = hotel.City,
-                     State = hotel.State
-                 }).ToListAsync();
+                     State = hotel.State,
+
+                    HotelRooms = hotel.HotelRooms
+                     .Select(hr => new HotelRoomDTO
+                     {
+                         Hotel = hr.Hotel.Name,
+                         HotelId = hr.HotelId,
+                         Rate = hr.Rate,
+                         PetFriendly = hr.PetFriendly,
+                     })
+                     .ToList(),
+                 })
+                 .ToListAsync();
             return hotels;
         }
 

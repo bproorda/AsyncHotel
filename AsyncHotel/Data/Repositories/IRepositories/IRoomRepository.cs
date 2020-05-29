@@ -1,4 +1,5 @@
 ﻿using AsyncHotel.Models;
+using AsyncHotel.Models.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace AsyncHotel.Data.Repositories
 {
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room>> GetAllRooms();
+        Task<IEnumerable<RoomDTO>> GetAllRooms();
 
-        Task<Room> GetOneRoom(int id);
+        Task<RoomDTO> GetOneRoom(int id);
 
         /// <summary>
         /// 
@@ -21,13 +22,13 @@ namespace AsyncHotel.Data.Repositories
         Task<bool> UpdateRoom(int id, Room Room );
 
 
-        Task<Room> SaveNewRoom (Room room);
+        Task<RoomDTO> SaveNewRoom (Room room);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns> deleted hotel</returns>
-        Task<Room> DeleteRoom(int id);
+        Task<RoomDTO> DeleteRoom(int id);
     }
 }

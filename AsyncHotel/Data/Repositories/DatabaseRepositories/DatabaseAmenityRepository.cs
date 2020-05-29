@@ -1,5 +1,6 @@
 ﻿using AsyncHotel.Data.Repositories.IRepositories;
 using AsyncHotel.Models;
+using AsyncHotel.Models.API;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace AsyncHotel.Data.Repositories.DatabaseRepositories
             _context = context;
         }
 
-        public async Task<Amenity> DeleteAmenity(int id)
+        public async Task<AmenityDTO> DeleteAmenity(int id)
         {
             var amenity = await _context.Amenities.FindAsync(id);
             if (amenity == null)
@@ -29,26 +30,46 @@ namespace AsyncHotel.Data.Repositories.DatabaseRepositories
             _context.Amenities.Remove(amenity);
             await _context.SaveChangesAsync();
 
-            return amenity;
+            var amenityToReturn = await GetOneAmenity(id);
+
+            return amenityToReturn;
 
         }
 
-        public async Task<IEnumerable<Amenity>> GetAllAmenities()
+        public async Task<IEnumerable<AmenityDTO>> GetAllAmenities()
         
         {
-            return await _context.Amenities.ToListAsync();
+            var amenities = await _context.Amenities
+               .Select(amenity => new AmenityDTO
+               {
+                   Id = amenity.Id,
+                   name = amenity.name
+               })
+               .ToListAsync();
+
+                return amenities;
         }
 
-        public async Task<Amenity> GetOneAmenity(int id)
+        public async Task<AmenityDTO> GetOneAmenity(int id)
         {
-            return await _context.Amenities.FindAsync(id);
+            var amenity = await _context.Amenities
+              .Select(amenity => new AmenityDTO
+              {
+                  Id = amenity.Id,
+                  name = amenity.name
+              })
+              .FirstOrDefaultAsync(amenity => amenity.Id == id);
+
+            return amenity;
         }
 
-        public async Task<Amenity> SaveNewAmenity(Amenity Amenity)
+        public async Task<AmenityDTO> SaveNewAmenity(Amenity Amenity)
         {
             _context.Amenities.Add(Amenity);
             await _context.SaveChangesAsync();
-            return Amenity;
+            var amenityToReturn = GetOneAmenity(Amenity.Id);
+
+            return await amenityToReturn;
         }
 
         public async Task<bool> UpdateAmenity(int id, Amenity Amenity)

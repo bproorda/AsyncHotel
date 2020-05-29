@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AsyncHotel.Web.Models;
+using AsyncHotel.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,15 +11,25 @@ namespace AsyncHotel.Web.Controllers
 {
     public class HotelsController : Controller
     {
-        // GET: Hotels
-        public ActionResult Index()
+        private readonly IHotelService hotelService;
+
+        public HotelsController(IHotelService hotelService)
         {
-            var hotels = new[]
+            this.hotelService = hotelService;
+        }
+
+        // GET: Hotels
+        public async Task<ActionResult> Index()
+        {
+            /*var hotels = new[]
             {
                 new Hotel { Id = 1, Name = "MyHotel", City = "Munising", State = "Michigan"},
                 new Hotel { Id = 2, Name = "TheHotel", City = "Marquette", State = "Michigan"},
                 new Hotel { Id = 3, Name = "AHotel", City = "Ishpeming", State = "Michigan"}
-            };
+            };*/
+
+            var hotels = await hotelService.GetAllHotels();
+
             //wanted to try out the orderby
             //return View(hotels.OrderBy(hotel => hotel.Name));
             return View(hotels);

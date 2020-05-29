@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncHotel.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,10 @@ namespace AsyncHotel.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // Singleton = only make one instance of HttpStudentService
+            // Transient = make a new one every time, e.g. with the current DbContext
+            services.AddSingleton<IHotelService, HttpHotelService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

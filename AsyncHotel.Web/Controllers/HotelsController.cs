@@ -27,7 +27,8 @@ namespace AsyncHotel.Web.Controllers
         // GET: Hotels/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var hotelDetailed = new Hotel { Name = "DetailedHotel", City = "Houghton", State = "Michigan" };
+            return View(hotelDetailed);
         }
 
         // GET: Hotels/Create

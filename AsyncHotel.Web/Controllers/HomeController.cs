@@ -23,6 +23,7 @@ namespace AsyncHotel.Web.Controllers
             return View();
         }
 
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();

@@ -15,10 +15,12 @@ namespace AsyncHotel.Web.Controllers
         {
             var hotels = new[]
             {
-                new Hotel { Id = 1, Name = "HotelA", City = "Munising", State = "Michigan"},
-                new Hotel { Id = 2, Name = "HotelB", City = "Marquette", State = "Michigan"},
-                new Hotel { Id = 3, Name = "HotelC", City = "Ishpeming", State = "Michigan"}
-            }; 
+                new Hotel { Id = 1, Name = "MyHotel", City = "Munising", State = "Michigan"},
+                new Hotel { Id = 2, Name = "TheHotel", City = "Marquette", State = "Michigan"},
+                new Hotel { Id = 3, Name = "AHotel", City = "Ishpeming", State = "Michigan"}
+            };
+            //wanted to try out the orderby
+            //return View(hotels.OrderBy(hotel => hotel.Name));
             return View(hotels);
         }
 

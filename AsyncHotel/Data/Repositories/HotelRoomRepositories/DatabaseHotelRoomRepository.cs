@@ -9,7 +9,7 @@ namespace AsyncHotel.API.Controllers
     {
         private readonly HotelDbContext _context;
 
-        public DatabaseHotelRoomsController(HotelDbContext context)
+        public DatabaseHotelRoomRepository(HotelDbContext context)
         {
             _context = context;
         }

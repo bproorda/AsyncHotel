@@ -9,7 +9,7 @@ namespace AsyncHotel.API.Controllers
 
         Task<IEnumerable<HotelRoomDTO>> GetAllHotelRooms(int hotelId);
 
-        Task<HotelDTO> GetHotelRoomByNumber(int roomNumber, int hotelId);
+        Task<HotelRoomDTO> GetHotelRoomByNumber(int roomNumber, int hotelId);
 
         Task<HotelRoomDTO> CreateHotelRoom(CreateHotelRoom hotelRoomData);
     }

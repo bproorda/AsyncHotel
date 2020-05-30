@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsyncHotel.Data;
 using AsyncHotel.Models;
+using AsyncHotel.Models.API;
 
 namespace AsyncHotel.API.Controllers
 {
@@ -23,26 +24,26 @@ namespace AsyncHotel.API.Controllers
             this.hotelRoomRepository = hotelRoomRepository;
         }
 
-        // GET: api/HotelRooms
+        // GET: api/Hotels/{HotelId}/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRooms( int HotelId)
+        public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms( int HotelId)
         {
             return Ok(await hotelRoomRepository.GetAllHotelRooms(HotelId));
         }
 
-        // GET: api/HotelRooms/5
-        [HttpGet("{id}")]
-        public /*async*/ Task<ActionResult<HotelRoom>> GetHotelRoom(int id)
+        // GET: api/Hotels/{HotelId}/Rooms/{roomNumber}
+        [HttpGet("{roomNumber}")]
+        public async Task<ActionResult<HotelRoomDTO>> GetOneHotelRoom(int HotelId, int roomNumber)
         {
-            /*var hotelRoom = await _context.HotelRooms.FindAsync(id);
+            var hotelRoom = await hotelRoomRepository.GetHotelRoomByNumber(HotelId, roomNumber);
 
             if (hotelRoom == null)
             {
                 return NotFound();
             }
 
-            return hotelRoom;*/
-            return default;
+            return hotelRoom;
+            
         }
 
         // PUT: api/HotelRooms/5

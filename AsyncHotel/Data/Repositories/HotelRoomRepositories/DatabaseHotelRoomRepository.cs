@@ -50,9 +50,34 @@ namespace AsyncHotel.API.Controllers
             return hotelRooms;
         }
 
-        public Task<HotelDTO> GetHotelRoomByNumber(int roomNumber, int hotelId)
+        public async Task<HotelRoomDTO> GetHotelRoomByNumber(int hotelId, int roomNumber)
         {
-            throw new System.NotImplementedException();
+            var hotelRoom = await _context.HotelRooms
+            .Where(hr => hr.HotelId == hotelId)
+            .Where(hr => hr.RoomNumber == roomNumber)
+            .Select(hr => new HotelRoomDTO
+            {
+                Hotel = hr.Hotel.Name,
+                HotelId = hr.HotelId,
+                Rate = hr.Rate,
+                RoomId = hr.RoomId,
+                RoomNumber = hr.RoomNumber,
+                PetFriendly = hr.PetFriendly,
+                Room = new RoomDTO
+                {
+                    Id = hr.Room.Id,
+                    name = hr.Room.name,
+                    layout = hr.Room.layout.ToString(),
+                    RoomAmenities = hr.Room.RoomAmenities
+                         .Select(ra => new RoomAmenityDTO
+                         {
+                             Amenity = ra.Amenity.name,
+                         })
+                         .ToList(),
+                }
+            }).FirstOrDefaultAsync();
+
+            return hotelRoom;
         }
 
         private bool HotelRoomExists(int id)

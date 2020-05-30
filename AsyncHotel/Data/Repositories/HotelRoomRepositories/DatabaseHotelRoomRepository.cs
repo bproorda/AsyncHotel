@@ -1,6 +1,8 @@
 ﻿using AsyncHotel.Data;
 using AsyncHotel.Models.API;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AsyncHotel.API.Controllers
@@ -19,14 +21,43 @@ namespace AsyncHotel.API.Controllers
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<HotelRoomDTO>> GetAllHotels()
+        public async Task<IEnumerable<HotelRoomDTO>> GetAllHotelRooms(int hotelId)
         {
-            throw new System.NotImplementedException();
+            var hotelRooms = await _context.HotelRooms
+                .Where(hr => hr.HotelId == hotelId)
+                .Select(hr => new HotelRoomDTO
+                {
+                    Hotel = hr.Hotel.Name,
+                    HotelId = hr.HotelId,
+                    Rate = hr.Rate,
+                    RoomId = hr.RoomId,
+                    RoomNumber = hr.RoomNumber,
+                    PetFriendly = hr.PetFriendly,
+                    Room = new RoomDTO
+                    {
+                        Id = hr.Room.Id,
+                        name = hr.Room.name,
+                        layout = hr.Room.layout.ToString(),
+                        RoomAmenities = hr.Room.RoomAmenities
+                             .Select(ra => new RoomAmenityDTO
+                             {
+                                 Amenity = ra.Amenity.name,
+                             })
+                             .ToList(),
+                    }
+                }).ToListAsync();
+
+            return hotelRooms;
         }
 
         public Task<HotelDTO> GetHotelRoomByNumber(int roomNumber, int hotelId)
         {
             throw new System.NotImplementedException();
+        }
+
+        private bool HotelRoomExists(int id)
+        {
+            return _context.HotelRooms.Any(e => e.HotelId == id);
         }
     }
 }

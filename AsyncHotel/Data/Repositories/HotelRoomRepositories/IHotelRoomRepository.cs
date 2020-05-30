@@ -7,7 +7,7 @@ namespace AsyncHotel.API.Controllers
     public interface IHotelRoomRepository
     {
 
-        Task<IEnumerable<HotelRoomDTO>> GetAllHotels();
+        Task<IEnumerable<HotelRoomDTO>> GetAllHotelRooms(int hotelId);
 
         Task<HotelDTO> GetHotelRoomByNumber(int roomNumber, int hotelId);
 

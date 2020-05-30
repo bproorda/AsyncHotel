@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncHotel.API.Controllers;
 using AsyncHotel.Data;
 using AsyncHotel.Data.Repositories;
 using AsyncHotel.Data.Repositories.DatabaseRepositories;
@@ -44,6 +45,7 @@ namespace AsyncHotel
             services.AddTransient<IHotelRepository, DatabaseHotelRepository>();
             services.AddTransient<IRoomRepository, DatabaseRoomRepository>();
             services.AddTransient<IAmenityRepository, DatabaseAmenityRepository>();
+            services.AddTransient<IHotelRoomRepository, DatabaseHotelRoomRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

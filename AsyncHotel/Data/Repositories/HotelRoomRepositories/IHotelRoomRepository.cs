@@ -13,7 +13,7 @@ namespace AsyncHotel.API.Controllers
 
         Task<HotelRoomDTO> SaveNewHotelRoom(CreateHotelRoom hotelRoomData, int hotelId);
 
-        Task<bool> UpdateHotel(int hotelId, int roomNumber);
+        Task<bool> UpdateHotelRoom(int hotelId, int roomNumber, CreateHotelRoom hotelRoomData);
 
         Task<HotelRoomDTO> DeleteHotelRoom(int hotelId, int roomNumber);
     }

@@ -93,10 +93,7 @@ namespace AsyncHotel.API.Controllers
             return hotelRoom;
         }
 
-        public Task<bool> UpdateHotel(int hotelId, int roomNumber)
-        {
-            throw new System.NotImplementedException();
-        }
+     
 
         private bool HotelRoomExists(int id)
         {
@@ -117,6 +114,27 @@ namespace AsyncHotel.API.Controllers
             await _context.SaveChangesAsync();
 
             return hotelroomToReturn;
+        }
+
+        public async Task<bool> UpdateHotelRoom(int hotelId, int roomNumber, CreateHotelRoom hotelRoomData)
+        {
+            var hotelRoom = await _context.HotelRooms
+                .FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.RoomNumber == hotelRoomData.RoomNumber);
+
+            if (hotelRoom == null)
+            {
+                return false;
+            }
+
+            hotelRoom.Rate = hotelRoomData.Rate;
+            hotelRoom.RoomId = hotelRoomData.RoomId;
+            hotelRoom.PetFriendly = hotelRoomData.PetFriendly;
+
+            _context.Entry(hotelRoom).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

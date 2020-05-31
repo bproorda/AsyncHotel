@@ -49,34 +49,20 @@ namespace AsyncHotel.API.Controllers
         // PUT: api/HotelRooms/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public /*async*/ Task<IActionResult> PutHotelRoom(int id, HotelRoom hotelRoom)
+        [HttpPut("{roomNumber}")]
+        public async Task<IActionResult> PutHotelRoom(int HotelId, int roomNumber, CreateHotelRoom hotelRoomData)
         {
-            /* if (id != hotelRoom.HotelId)
-             {
-                 return BadRequest();
-             }
 
-             _context.Entry(hotelRoom).State = EntityState.Modified;
+            if (roomNumber != hotelRoomData.RoomNumber)
+            {
+                return BadRequest();
+            }
+            bool didUpdate = await hotelRoomRepository.UpdateHotelRoom(HotelId, roomNumber, hotelRoomData);
 
-             try
-             {
-                 await _context.SaveChangesAsync();
-             }
-             catch (DbUpdateConcurrencyException)
-             {
-                 if (!HotelRoomExists(id))
-                 {
-                     return NotFound();
-                 }
-                 else
-                 {
-                     throw;
-                 }
-             }
+      
 
-             return NoContent();*/
-            return default;
+             return NoContent();
+            
         }
 
         // POST: api/HotelRooms

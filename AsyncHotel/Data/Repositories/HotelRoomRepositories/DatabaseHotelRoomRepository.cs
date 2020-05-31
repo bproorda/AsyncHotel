@@ -102,5 +102,21 @@ namespace AsyncHotel.API.Controllers
         {
             return _context.HotelRooms.Any(e => e.HotelId == id);
         }
+
+        public async Task<HotelRoomDTO> DeleteHotelRoom(int hotelId, int roomNumber)
+        {
+            var hotelRoom = await _context.HotelRooms.FindAsync(hotelId, roomNumber);
+            if (hotelRoom == null)
+            {
+                return null;
+            }
+
+            var hotelroomToReturn = await GetHotelRoomByNumber(hotelId, roomNumber);
+
+            _context.HotelRooms.Remove(hotelRoom);
+            await _context.SaveChangesAsync();
+
+            return hotelroomToReturn;
+        }
     }
 }

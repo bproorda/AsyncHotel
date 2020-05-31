@@ -94,21 +94,17 @@ namespace AsyncHotel.API.Controllers
            
         }
 
-        // DELETE: api/HotelRooms/5
-        [HttpDelete("{id}")]
-        public /*async*/ Task<ActionResult<HotelRoom>> DeleteHotelRoom(int id)
+        // DELETE: api/Hotels/{HotelId}/Rooms/{roomNumber}
+        [HttpDelete("{roomNumber}")]
+        public async Task<ActionResult<HotelRoomDTO>> DeleteHotelRoom(int HotelId, int roomNumber)
         {
-            /*var hotelRoom = await _context.HotelRooms.FindAsync(id);
+            var hotelRoom = await hotelRoomRepository.DeleteHotelRoom(HotelId, roomNumber);
             if (hotelRoom == null)
             {
                 return NotFound();
             }
 
-            _context.HotelRooms.Remove(hotelRoom);
-            await _context.SaveChangesAsync();
-
-            return hotelRoom;*/
-            return  default;
+            return hotelRoom;
         }
 
        

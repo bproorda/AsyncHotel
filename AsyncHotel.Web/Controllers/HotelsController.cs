@@ -21,12 +21,7 @@ namespace AsyncHotel.Web.Controllers
         // GET: Hotels
         public async Task<ActionResult> Index()
         {
-            /*var hotels = new[]
-            {
-                new Hotel { Id = 1, Name = "MyHotel", City = "Munising", State = "Michigan"},
-                new Hotel { Id = 2, Name = "TheHotel", City = "Marquette", State = "Michigan"},
-                new Hotel { Id = 3, Name = "AHotel", City = "Ishpeming", State = "Michigan"}
-            };*/
+           
 
             var hotels = await hotelService.GetAllHotels();
 
@@ -36,9 +31,10 @@ namespace AsyncHotel.Web.Controllers
         }
 
         // GET: Hotels/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var hotelDetailed = new Hotel {Id = id, Name = "DetailedHotel", City = "Houghton", State = "Michigan" };
+            //var hotelDetailed = new Hotel {Id = id, Name = "DetailedHotel", City = "Houghton", State = "Michigan" };
+            var hotelDetailed = await hotelService.GetOneHotel(id);
             return View(hotelDetailed);
         }
 

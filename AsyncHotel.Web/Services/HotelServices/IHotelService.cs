@@ -9,6 +9,6 @@ namespace AsyncHotel.Web.Services
     {
          Task<List<Hotel>> GetAllHotels();
 
-       
+        Task<Hotel> GetOneHotel(int hotelId);
     }
 }

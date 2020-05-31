@@ -33,11 +33,16 @@ namespace AsyncHotel.Web.Controllers
         // GET: Hotels/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            //var hotelDetailed = new Hotel {Id = id, Name = "DetailedHotel", City = "Houghton", State = "Michigan" };
             var hotelDetailed = await hotelService.GetOneHotel(id);
             return View(hotelDetailed);
         }
 
+        // GET: Hotels/Rooms/5
+        public async Task<ActionResult> Rooms(int id)
+        {
+            var hotelRooms = await hotelService.GetHotelRooms(id);
+            return View(hotelRooms);
+        }
         // GET: Hotels/Create
         public ActionResult Create()
         {

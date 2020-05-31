@@ -20,6 +20,14 @@ namespace AsyncHotel.Web.Services
         return result;
     }
 
+        public async Task<List<HotelRoomSummary>> GetHotelRooms(int id)
+        {
+            string address = $"Hotels/{id}/Rooms";
+            var responseStream = await httpClient.GetStreamAsync(address);
+            List<HotelRoomSummary> result = await JsonSerializer.DeserializeAsync<List<HotelRoomSummary>>(responseStream);
+            return result;
+        }
+
         public async Task<Hotel> GetOneHotel(int hotelId)
         {
             string address = $"Hotels/{hotelId}";

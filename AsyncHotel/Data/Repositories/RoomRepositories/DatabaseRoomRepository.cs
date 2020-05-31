@@ -55,6 +55,20 @@ namespace AsyncHotel.Data.Repositories
             return rooms;
         }
 
+        public async Task<IEnumerable<AmenityDTO>> GetAmenities(int roomId)
+        {
+            var amenities = await _context.RoomAmenities
+                .Where(ra => ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO 
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                })
+                .ToListAsync();
+
+            return amenities;
+        }
+
         public async Task<RoomDTO> GetOneRoom(int id)
         {
             var room = await _context.Rooms

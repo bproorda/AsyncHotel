@@ -89,6 +89,15 @@ namespace AsyncHotel.Controllers
             return room;
         }
 
-       
+        [HttpGet("{id}/Amenities")]
+
+        public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenities(int id)
+        {
+            //var amenities = await RoomRepository.GetAmenities(id);
+
+            return Ok(await RoomRepository.GetAmenities(id));
+        }
+
+
     }
 }

@@ -21,6 +21,8 @@ namespace AsyncHotel.Web.Models
         public string State { get; set; }
 
         //Navigation properites
+
+        [JsonPropertyName("hotelRooms")]
         public List<HotelRoomSummary> HotelRooms { get; set; }
     }
 }

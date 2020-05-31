@@ -107,6 +107,19 @@ namespace AsyncHotel.Controllers
             return amenity;
         }
 
+        [HttpDelete("{roomId}/Amenities/{amenityId}")]
+
+        public async Task<ActionResult<AmenityDTO>> DeleteAmenity(int roomId, int amenityId)
+        {
+            var amenity = await RoomRepository.DeleteAmenity(roomId, amenityId);
+
+            if (amenity == null)
+            {
+                return NotFound();
+            }
+
+            return amenity;
+        }
 
     }
 }

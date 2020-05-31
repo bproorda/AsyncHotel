@@ -42,6 +42,29 @@ namespace AsyncHotel.Data.Repositories
             return amenityToReturn;
         }
 
+        public async Task<AmenityDTO> DeleteAmenity(int roomId, int amenityId)
+        {
+            var amenity = await _context.RoomAmenities.FindAsync(amenityId, roomId);
+            if (amenity == null)
+            {
+                return null;
+            }
+
+            var amenityToReturn = await _context.RoomAmenities
+                .Where(ra => ra.AmenityId == amenityId && ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                }).FirstOrDefaultAsync();
+
+            _context.RoomAmenities.Remove(amenity);
+            await _context.SaveChangesAsync();
+
+            return amenityToReturn;
+
+        }
+
         public async Task<RoomDTO> DeleteRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -50,10 +73,10 @@ namespace AsyncHotel.Data.Repositories
                 return null;
             }
 
+            var roomToReturn = await GetOneRoom(id);
+
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
-
-            var roomToReturn = await GetOneRoom(id);
 
             return roomToReturn;
         }

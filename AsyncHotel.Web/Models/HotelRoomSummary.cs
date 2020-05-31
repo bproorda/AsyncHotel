@@ -15,7 +15,8 @@ namespace AsyncHotel.Web.Models
         [JsonPropertyName("roomNumber")]
         public int RoomNumber { get; set; }
 
-        //public RoomDTO Room { get; set; }
+        [JsonPropertyName("room")]
+        public RoomSummary Room { get; set; }
 
 
         [JsonPropertyName("RoomId")]

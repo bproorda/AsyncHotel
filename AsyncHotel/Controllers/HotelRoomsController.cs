@@ -83,27 +83,15 @@ namespace AsyncHotel.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public /*async*/ Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom)
+        public async Task<ActionResult<HotelRoom>> PostHotelRoom(CreateHotelRoom hotelRoomData, int HotelId)
         {
-            /* _context.HotelRooms.Add(hotelRoom);
-             try
-             {
-                 await _context.SaveChangesAsync();
-             }
-             catch (DbUpdateException)
-             {
-                 if (HotelRoomExists(hotelRoom.HotelId))
-                 {
-                     return Conflict();
-                 }
-                 else
-                 {
-                     throw;
-                 }
-             }
 
-             return CreatedAtAction("GetHotelRoom", new { id = hotelRoom.HotelId }, hotelRoom);*/
-            return default;
+            var hotelRoom = await hotelRoomRepository.SaveNewHotelRoom(hotelRoomData, HotelId);
+
+         
+
+             return CreatedAtAction("GetHotelRoom", new { id = hotelRoom.HotelId }, hotelRoom);
+           
         }
 
         // DELETE: api/HotelRooms/5

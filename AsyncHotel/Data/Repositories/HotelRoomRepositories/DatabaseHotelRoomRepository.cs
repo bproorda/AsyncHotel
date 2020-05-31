@@ -1,4 +1,5 @@
 ﻿using AsyncHotel.Data;
+using AsyncHotel.Models;
 using AsyncHotel.Models.API;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,9 +17,21 @@ namespace AsyncHotel.API.Controllers
             _context = context;
         }
 
-        public Task<HotelRoomDTO> CreateHotelRoom(CreateHotelRoom hotelRoomData)
+        public async Task<HotelRoomDTO> SaveNewHotelRoom(CreateHotelRoom hotelRoomData, int hotelId)
         {
-            throw new System.NotImplementedException();
+            var hotelroom = new HotelRoom
+            {
+                HotelId = hotelId,
+                RoomNumber = hotelRoomData.RoomNumber,
+                Rate = hotelRoomData.Rate,
+                RoomId = hotelRoomData.RoomId,
+                PetFriendly = hotelRoomData.PetFriendly
+            };
+            _context.HotelRooms.Add(hotelroom);
+            await _context.SaveChangesAsync();
+
+            var newHotelRoom = await GetHotelRoomByNumber(hotelId, hotelRoomData.RoomNumber);
+            return newHotelRoom;
         }
 
         public async Task<IEnumerable<HotelRoomDTO>> GetAllHotelRooms(int hotelId)
@@ -78,6 +91,11 @@ namespace AsyncHotel.API.Controllers
             }).FirstOrDefaultAsync();
 
             return hotelRoom;
+        }
+
+        public Task<bool> UpdateHotel(int hotelId, int roomNumber)
+        {
+            throw new System.NotImplementedException();
         }
 
         private bool HotelRoomExists(int id)

@@ -11,6 +11,8 @@ namespace AsyncHotel.API.Controllers
 
         Task<HotelRoomDTO> GetHotelRoomByNumber(int roomNumber, int hotelId);
 
-        Task<HotelRoomDTO> CreateHotelRoom(CreateHotelRoom hotelRoomData);
+        Task<HotelRoomDTO> SaveNewHotelRoom(CreateHotelRoom hotelRoomData, int hotelId);
+
+        Task<bool> UpdateHotel(int hotelId, int roomNumber);
     }
 }

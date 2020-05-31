@@ -18,6 +18,30 @@ namespace AsyncHotel.Data.Repositories
             _context = context;
         }
 
+        public async Task<AmenityDTO> AddAmenity(int roomId, int amenityId)
+        {
+
+            var newRA = new RoomAmenity 
+            {
+                AmenityId = amenityId,
+                RoomId = roomId
+            };
+
+
+            _context.RoomAmenities.Add(newRA);
+            await _context.SaveChangesAsync();
+
+            var amenityToReturn = await _context.RoomAmenities
+                .Where(ra => ra.AmenityId == amenityId && ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                }).FirstOrDefaultAsync();
+
+            return amenityToReturn;
+        }
+
         public async Task<RoomDTO> DeleteRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);

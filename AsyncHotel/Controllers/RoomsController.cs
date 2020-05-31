@@ -98,6 +98,15 @@ namespace AsyncHotel.Controllers
             return Ok(await RoomRepository.GetAmenities(id));
         }
 
+        [HttpPost("{roomId}/Amenities/{amenityId}")]
+
+        public async Task<AmenityDTO> AddAmenity(int roomId,int amenityId)
+        {
+           var amenity = await RoomRepository.AddAmenity(roomId, amenityId);
+
+            return amenity;
+        }
+
 
     }
 }

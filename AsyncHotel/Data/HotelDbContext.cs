@@ -70,17 +70,17 @@ namespace AsyncHotel.Data
             .HasKey(HotelRoom => new
             {
               HotelRoom.HotelId,
-              HotelRoom.RoomId
+              HotelRoom.RoomNumber
             });
             modelBuilder.Entity<HotelRoom>()
                 .HasData(
-                new HotelRoom { HotelId = 1, RoomId = 1, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 2, RoomId = 2, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 3, RoomId = 3, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 4, RoomId = 6, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 5, RoomId = 4, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 5, RoomId = 5, Rate = 90.50, PetFriendly = true },
-                new HotelRoom { HotelId = 5, RoomId = 7, Rate = 90.50, PetFriendly = true }
+                new HotelRoom { HotelId = 1, RoomId = 1, RoomNumber = 101, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 2, RoomId = 2, RoomNumber = 102, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 3, RoomId = 3, RoomNumber = 103, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 4, RoomId = 6, RoomNumber = 104, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 5, RoomId = 4, RoomNumber = 101, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 5, RoomId = 5, RoomNumber = 201, Rate = 90.50, PetFriendly = true },
+                new HotelRoom { HotelId = 5, RoomId = 7, RoomNumber = 301, Rate = 90.50, PetFriendly = true }
                 );
 
 

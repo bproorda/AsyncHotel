@@ -30,5 +30,8 @@ namespace AsyncHotel.Data.Repositories
         /// <param name="id"></param>
         /// <returns> deleted hotel</returns>
         Task<RoomDTO> DeleteRoom(int id);
+        Task<IEnumerable<AmenityDTO>> GetAmenities(int roomId);
+        Task<AmenityDTO> AddAmenity(int roomId, int amenityId);
+        Task<AmenityDTO> DeleteAmenity(int roomId, int amenityId);
     }
 }

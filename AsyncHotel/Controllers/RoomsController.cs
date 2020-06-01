@@ -89,6 +89,37 @@ namespace AsyncHotel.Controllers
             return room;
         }
 
-       
+        [HttpGet("{id}/Amenities")]
+
+        public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenities(int id)
+        {
+            //var amenities = await RoomRepository.GetAmenities(id);
+
+            return Ok(await RoomRepository.GetAmenities(id));
+        }
+
+        [HttpPost("{roomId}/Amenities/{amenityId}")]
+
+        public async Task<AmenityDTO> AddAmenity(int roomId,int amenityId)
+        {
+           var amenity = await RoomRepository.AddAmenity(roomId, amenityId);
+
+            return amenity;
+        }
+
+        [HttpDelete("{roomId}/Amenities/{amenityId}")]
+
+        public async Task<ActionResult<AmenityDTO>> DeleteAmenity(int roomId, int amenityId)
+        {
+            var amenity = await RoomRepository.DeleteAmenity(roomId, amenityId);
+
+            if (amenity == null)
+            {
+                return NotFound();
+            }
+
+            return amenity;
+        }
+
     }
 }

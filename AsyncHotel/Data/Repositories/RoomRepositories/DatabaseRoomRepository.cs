@@ -18,6 +18,53 @@ namespace AsyncHotel.Data.Repositories
             _context = context;
         }
 
+        public async Task<AmenityDTO> AddAmenity(int roomId, int amenityId)
+        {
+
+            var newRA = new RoomAmenity 
+            {
+                AmenityId = amenityId,
+                RoomId = roomId
+            };
+
+
+            _context.RoomAmenities.Add(newRA);
+            await _context.SaveChangesAsync();
+
+            var amenityToReturn = await _context.RoomAmenities
+                .Where(ra => ra.AmenityId == amenityId && ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                }).FirstOrDefaultAsync();
+
+            return amenityToReturn;
+        }
+
+        public async Task<AmenityDTO> DeleteAmenity(int roomId, int amenityId)
+        {
+            var amenity = await _context.RoomAmenities.FindAsync(amenityId, roomId);
+            if (amenity == null)
+            {
+                return null;
+            }
+
+            var amenityToReturn = await _context.RoomAmenities
+                .Where(ra => ra.AmenityId == amenityId && ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                }).FirstOrDefaultAsync();
+
+            _context.RoomAmenities.Remove(amenity);
+            await _context.SaveChangesAsync();
+
+            return amenityToReturn;
+
+        }
+
         public async Task<RoomDTO> DeleteRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -26,10 +73,10 @@ namespace AsyncHotel.Data.Repositories
                 return null;
             }
 
+            var roomToReturn = await GetOneRoom(id);
+
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
-
-            var roomToReturn = await GetOneRoom(id);
 
             return roomToReturn;
         }
@@ -53,6 +100,20 @@ namespace AsyncHotel.Data.Repositories
                 .ToListAsync();
 
             return rooms;
+        }
+
+        public async Task<IEnumerable<AmenityDTO>> GetAmenities(int roomId)
+        {
+            var amenities = await _context.RoomAmenities
+                .Where(ra => ra.RoomId == roomId)
+                .Select(ra => new AmenityDTO 
+                {
+                    Id = ra.AmenityId,
+                    name = ra.Amenity.name,
+                })
+                .ToListAsync();
+
+            return amenities;
         }
 
         public async Task<RoomDTO> GetOneRoom(int id)

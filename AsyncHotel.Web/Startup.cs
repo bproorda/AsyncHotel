@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AsyncHotel.Web.Services;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,13 @@ namespace AsyncHotel.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(Configuration.GetValue<string>("API_URL"))
+            };
+            services.AddSingleton<HttpClient>(httpClient);
+
 
             // Singleton = only make one instance of HttpStudentService
             // Transient = make a new one every time, e.g. with the current DbContext

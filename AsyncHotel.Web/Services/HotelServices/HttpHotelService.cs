@@ -9,10 +9,17 @@ namespace AsyncHotel.Web.Services
 {
     public class HttpHotelService : IHotelService
     {
-        private static readonly HttpClient httpClient = new HttpClient
+        /*private static readonly HttpClient httpClient = new HttpClient
         {
             BaseAddress = new Uri("https://asynchotelapibpr13.azurewebsites.net/api/")
-        };
+        };*/
+
+        private readonly HttpClient httpClient;
+
+        public HttpHotelService(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
         public async Task<List<Hotel>> GetAllHotels()
         {
         var responseStream = await httpClient.GetStreamAsync("Hotels");

@@ -11,7 +11,7 @@ namespace AsyncHotel.Web.Services
     {
         private static readonly HttpClient httpClient = new HttpClient
         {
-            BaseAddress = new Uri("https://localhost:44372/api/")
+            BaseAddress = new Uri("https://asynchotelapibpr13.azurewebsites.net/api/")
         };
         public async Task<List<Hotel>> GetAllHotels()
         {
